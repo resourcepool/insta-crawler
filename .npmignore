@@ -1,0 +1,7 @@
+.idea
+.travis.yml
+Dockerfile
+.dockerignore
+*.iml
+example
+out
