@@ -1,6 +1,6 @@
 {
   "name": "insta-crawler",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Crawl the content of any instagram public page with no token or login",
   "license": "MIT",
   "author": {
