@@ -1,0 +1,48 @@
+{
+  "name": "insta-crawler",
+  "version": "0.2.0",
+  "description": "Crawl the content of any instagram public page with no token or login",
+  "license": "MIT",
+  "author": {
+    "name": "Loïc Ortola",
+    "email": "contact@loicortola.com",
+    "url": "https://www.resourcepool.io"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/resourcepool/insta-crawler.git"
+  },
+  "engines": {
+    "node": ">=8"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "main": "index.js",
+  "bin": {
+    "instagram-crawler": "index.js"
+  },
+  "preferGlobal": true,
+  "keywords": [
+    "ig",
+    "instagram",
+    "insta",
+    "headless",
+    "crawl",
+    "crawler",
+    "scrapper",
+    "scrap",
+    "bot",
+    "javascript",
+    "puppeteer"
+  ],
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "global": "^4.4.0",
+    "insta-crawler": "^0.1.0",
+    "meow": "^5.0.0",
+    "ora": "^2.1.0",
+    "puppeteer": "^1.8.0",
+    "write-yaml": "^1.0.0"
+  }
+}

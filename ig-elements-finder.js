@@ -176,7 +176,7 @@ const IgersElementsFinder = class {
 		let postUrl = await this.page.$$eval("img", async (els, conf) => {
 			let postRootNode = null;
 			for (let i in els) {
-				if (els[i].hasAttribute("alt") && els[i].getAttribute("alt").trim() === conf.firstPostDescription) {
+				if (els[i].hasAttribute("alt") && els[i].getAttribute("alt").trim() === conf.firstPostAlt) {
 					// We need to go up the tree 4 times to get the root node for a post
 					postRootNode = els[i].parentElement.parentElement.parentElement.parentElement;
 				}

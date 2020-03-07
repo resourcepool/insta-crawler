@@ -4,5 +4,6 @@ node_modules
 $.yml
 !.travis.yml
 *.json
+!package.json
 !element.json
 .DS_STORE

@@ -58,7 +58,7 @@ const IgersPostElementsFinder = class {
 	}
 
 	async _findPostMetadata() {
-		let items = await this.page.$eval("article", async (article) => {
+		let items = await this.page.$eval("article", async (article, conf) => {
 			let r = {
 				img: null,
 				description: null,
@@ -67,7 +67,8 @@ const IgersPostElementsFinder = class {
 			};
 			// Find Image URLs
 			article.querySelectorAll("img").forEach(async imgElement => {
-				if (!imgElement.hasAttribute("alt") && imgElement.hasAttribute("srcset")) {
+				if (imgElement.hasAttribute("alt") && imgElement.hasAttribute("srcset") && imgElement.getAttribute("alt").trim() === conf.firstPostAlt) {
+					console.log(imgElement)
 					r.img = "article div" + await window.computeClassNames(imgElement.parentElement.className) + " img";
 				}
 			});
@@ -76,9 +77,9 @@ const IgersPostElementsFinder = class {
 			r.description = "article ul" + await window.computeClassNames(ulElement.className) + " li:first-child span";
 			r.tags = "article ul" + await window.computeClassNames(ulElement.className) + " li:first-child span a";
 			// Like Count
-			document.querySelectorAll("article div section span").forEach(async likeElement => {
+			document.querySelectorAll("article div section div div button").forEach(async likeElement => {
 				if (likeElement.hasAttribute("class") && likeElement.innerText.indexOf("like") > 0) {
-					r.likeCount = "article div section span" + await window.computeClassNames(likeElement.className) + " span";
+					r.likeCount = "article div section div div" + await window.computeClassNames(likeElement.parentElement.className) + " button";
 				}
 			});
 			return r;
