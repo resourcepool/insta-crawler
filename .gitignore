@@ -6,4 +6,5 @@ $.yml
 *.json
 !package.json
 !element.json
+!template.json
 .DS_STORE
