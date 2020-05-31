@@ -13,16 +13,6 @@
 
 Inspired by [instagram-profilecrawl](https://github.com/nacimgoura/instagram-profilecrawl)
 
-## Run with docker
-```bash
-# Crawl profile of instagram user **loicortola** and export content to dest.json
-docker run -e IGER=loicortola resourcepool/insta-crawler >> dest.json
-# Crawl profile of instagram user **barackobama** limiting to the two latest posts and export content to barack.json
-docker run -e IGER=barackobama -e LIMIT=2 resourcepool/insta-crawler >> barack.json
-# Crawl profile of instagram user **loicortola** and export content to subdirectory **out/loicortola.yaml**
-docker run -e IGER=loicortola -e OUTPUT=yaml -v ./out:/home/node/app/out resourcepool/insta-crawler
-```
-
 ## Install
 
 With NPM:
@@ -52,11 +42,23 @@ $ insta-crawler --help
     $ insta-crawler loicortola -o yaml
 ```
 
+## Run with docker
+```bash
+# Crawl profile of instagram user **loicortola** and export content to dest.json
+docker run -e IGER=loicortola resourcepool/insta-crawler >> dest.json
+# Crawl profile of instagram user **barackobama** limiting to the two latest posts and export content to barack.json
+docker run -e IGER=barackobama -e LIMIT=2 resourcepool/insta-crawler >> barack.json
+# Crawl profile of instagram user **loicortola** and export content to subdirectory **out/loicortola.yaml**
+docker run -e IGER=loicortola -e OUTPUT=yaml -v ./out:/home/node/app/out resourcepool/insta-crawler
+```
+
 ## Example
 
 You can find an example in the example folder.
 
 ![example](example/example.png)
+
+
 
 ## License
 
