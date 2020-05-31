@@ -43,7 +43,9 @@ RUN npm i puppeteer \
 # Run everything after as non-privileged user.
 USER pptruser
 
-COPY . .
+COPY ./*.js ./
+COPY package.json .
+COPY template.json .
 RUN npm i
 
 ENTRYPOINT ["dumb-init", "--"]
