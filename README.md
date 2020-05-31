@@ -25,6 +25,12 @@ docker run -e IGER=loicortola -e OUTPUT=yaml -v ./out:/home/node/app/out resourc
 
 ## Install
 
+With NPM:
+```bash
+npm i --global insta-crawler
+```
+
+With Yarn:
 ```bash
 yarn add global insta-crawler
 ```

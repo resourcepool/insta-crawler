@@ -1,7 +1,9 @@
 {
   "username": "resourcepool",
   "displayName": "Resourcepool",
-  "firstPostAlt": "Photo by Resourcepool in Infinite Loop with @loicortola.",
-  "firstPostDescription": "#helico really is the best thing in the #world",
-  "firstCommentDescription": "and dont we love helicopters!"
+  "videoPostAlt": "#home sweet home",
+  "videoPostDescription": "#home sweet home",
+  "photoPostAlt": "Photo by Resourcepool in Infinite Loop with @loicortola.",
+  "photoPostDescription": "#helico really is the best thing in the #world",
+  "photoPostCommentDescription": "and dont we love helicopters!"
 }

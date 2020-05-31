@@ -1,6 +1,6 @@
 {
   "name": "insta-crawler",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Crawl the content of any instagram public page with no token or login",
   "license": "MIT",
   "author": {
@@ -20,7 +20,7 @@
   },
   "main": "index.js",
   "bin": {
-    "instagram-crawler": "index.js"
+    "insta-crawler": "index.js"
   },
   "preferGlobal": true,
   "keywords": [
@@ -37,12 +37,11 @@
     "puppeteer"
   ],
   "dependencies": {
-    "chalk": "^2.4.1",
+    "chalk": "^4.0.0",
     "global": "^4.4.0",
-    "insta-crawler": "^0.1.0",
-    "meow": "^5.0.0",
-    "ora": "^2.1.0",
-    "puppeteer": "^1.8.0",
+    "meow": "^7.0.1",
+    "ora": "^4.0.4",
+    "puppeteer": "^3.2.0",
     "write-yaml": "^1.0.0"
   }
 }

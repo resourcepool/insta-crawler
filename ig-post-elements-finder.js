@@ -22,7 +22,7 @@ const IgersPostElementsFinder = class {
 		this._assertPageSuccess(response);
 
 		// Expose classname sanitizer function
-		this.page.exposeFunction("computeClassNames", this._computeClassNames);
+		await this.page.exposeFunction("computeClassNames", this._computeClassNames);
 
 		let posts = await this._findPostMetadata();
 
@@ -53,6 +53,12 @@ const IgersPostElementsFinder = class {
 	 * @private
 	 */
 	_computeClassNames(className) {
+		if (!className) {
+			return "";
+		}
+		if (className.indexOf(" ") === -1) {
+			return "." + className;
+		}
 		let cns = className.trim().split(/\s+/);
 		return cns.reduce((prev, curr) => prev + "." + curr, "");
 	}
@@ -61,32 +67,53 @@ const IgersPostElementsFinder = class {
 		let items = await this.page.$eval("article", async (article, conf) => {
 			let r = {
 				img: null,
+				video: null,
+				type: null,
 				description: null,
 				tags: null,
-				likeCount: null
+				likeCount: null,
+				viewCount: null
 			};
+
 			// Find Image URLs
 			article.querySelectorAll("img").forEach(async imgElement => {
-				if (imgElement.hasAttribute("alt") && imgElement.hasAttribute("srcset") && imgElement.getAttribute("alt").trim() === conf.firstPostAlt) {
-					console.log(imgElement)
-					r.img = "article div" + await window.computeClassNames(imgElement.parentElement.className) + " img";
+				if (imgElement.hasAttribute("alt") && imgElement.hasAttribute("srcset") && imgElement.getAttribute("alt").trim() === conf.photoPostAlt) {
+					r.type = "image";
+					r.img = "article div" + await computeClassNames(imgElement.parentElement.className) + " img";
+				}
+			});
+			// Find Video URLs
+			article.querySelectorAll("video").forEach(async videoElement => {
+				if (videoElement.hasAttribute("src") && videoElement.hasAttribute("type")) {
+					r.type = "video";
+					r.video = "article div" + await computeClassNames(videoElement.parentElement.className) + " video";
 				}
 			});
 			// Description and tags
 			let ulElement = article.querySelector("ul");
-			r.description = "article ul" + await window.computeClassNames(ulElement.className) + " li:first-child span";
-			r.tags = "article ul" + await window.computeClassNames(ulElement.className) + " li:first-child span a";
-			// Like Count
-			document.querySelectorAll("article div section div div button").forEach(async likeElement => {
+			r.description = "article div" + await computeClassNames(ulElement.parentElement.className) + " ul li:first-child > div > div > div:nth-child(2) > span";
+			r.tags = "article div" + await computeClassNames(ulElement.parentElement.className) + " ul li:first-child span a";
+
+			// Like Count if image
+			const likeElements = document.querySelectorAll("article div section div div button");
+			for (let likeElement of likeElements) {
 				if (likeElement.hasAttribute("class") && likeElement.innerText.indexOf("like") > 0) {
-					r.likeCount = "article div section div div" + await window.computeClassNames(likeElement.parentElement.className) + " button";
+					r.likeCount = "article div section div div" + await computeClassNames(likeElement.parentElement.className) + " button";
 				}
-			});
+			}
+
+			// View Count if video
+			const viewElements = document.querySelectorAll("article div section div span");
+			for (let viewElement of viewElements) {
+				if (viewElement.hasAttribute("class") && viewElement.innerText.indexOf("view") > 0) {
+					r.viewCount = "article div section div" + await computeClassNames(viewElement.parentElement.className) + " span";
+				}
+			}
 			return r;
 		}, template);
-		if (!items || !items.img || !items.description || !items.tags || !items.likeCount) {
+		if (!items || (!items.img && !items.video) || !items.description || !items.tags || (!items.likeCount && !items.viewCount)) {
 			console.error(items);
-			throw new Error("Couldn't get img, tags, likeCount or description of post");
+			throw new Error("Couldn't get img, video, tags, likeCount, viewCount or description of post");
 		}
 		return items;
 	}
